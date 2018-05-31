@@ -1,0 +1,18 @@
+{
+  "name": "node-red-contrib-email-node",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordi Casals <jcg@industrialshields.com>",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "email-contrib": "email.js"
+    }
+  },
+  "dependencies": {
+    "nodemailer": "^4.6.5"
+  }
+}

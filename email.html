@@ -1,0 +1,74 @@
+<script type="text/x-red" data-template-name="email-contrib">
+    <div class="form-row">
+        <label for="node-input-to"><i class="fa fa-envelope"></i> To</label>
+        <input type="text" id="node-input-to" placeholder="email@address.com">
+    </div>
+    <div class="form-row">
+        <label for="node-input-server"><i class="fa fa-globe"></i> Server</label>
+        <input type="text" id="node-input-server" placeholder="smtp.gmail.com">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port"><i class="fa fa-random"></i> Port</label>
+        <input type="text" id="node-input-port" placeholder="465" style="width:100px">
+        <label style="width:40px"> </label>
+        <input type="checkbox" id="node-input-secure" style="display:inline-block; width:20px; vertical-align:baseline;">
+        <span>Use secure connection</span>
+    </div>
+    <div class="form-row">
+        <label for="node-input-userid"><i class="fa fa-user"></i> User</label>
+        <input type="text" id="node-input-userid" placeholder="userid">
+    </div>
+    <div class="form-row">
+        <label for="node-input-password"><i class="fa fa-lock"></i> Password</label>
+        <input type="password" id="node-input-password" placeholder="password">
+    </div>
+    <br/>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</span></label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="email-contrib">
+    <p>Sends the <code>msg.payload</code> as an email, with a subject of <code>msg.topic</code>.</p>
+    <p>The default message recipient can be configured in the node, if it is left
+    blank it should be set using the <code>msg.to</code> property of the incoming message. If left blank
+    you can also specify <code>msg.cc</code> and/or <code>msg.bcc</code> properties.</p>
+    <p>You may optionally set <code>msg.from</code> in the payload which will override the <code>userid</code>
+    default value.</p>
+    <p>The payload can be html format.</p>
+    <p>If the payload is a binary buffer then it will be converted to an attachment.
+    The filename should be set using <code>msg.filename</code>. Optionally <code>msg.description</code> can be added for the body text.</p>
+    <p>Alternatively you may provide <code>msg.attachments</code> which should contain an array of one or
+    more attachments in <a href="https://www.npmjs.com/package/nodemailer#attachments" target="_new">nodemailer</a> format.</p>
+    <p>If required by your recipient you may also pass in a <code>msg.envelope</code> object, typically containing extra from and to properties.</p>
+    <p>Note: uses SMTP with SSL to port 465.</p>
+</script>
+
+<script type="text/javascript">
+(function() {
+    RED.nodes.registerType('email-contrib',{
+        category: 'social-output',
+        color:"#66bb44",
+        defaults: {
+            server: {value:"smtp.gmail.com"},
+			port: {value:"465"},
+            secure: {value: true},
+            to: {value:""},
+            name: {value:""},
+			userid: {value:""},
+			password: {value:""},
+        },
+        inputs:1,
+        outputs:0,
+        icon: "envelope.png",
+        align: "right",
+        paletteLabel: function() {
+            return "email";
+        },
+        label: function() {
+            return this.name || this.to || "email";
+        },
+    });
+})();
+</script>
